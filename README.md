@@ -4,6 +4,7 @@
 ## Cara Menggunakan
 > Jangan lupa untuk menginstall [node.js](https://nodejs.org/en/) sebelum memulai
 - [Download](https://github.com/shidoitsuka/masterBarang/archive/master.zip) repository ini, lalu ekstrak
+- Buat database dengan nama `masterBarang`
 - Import file `masterBarang.sql` ke MySQL anda
 - Buka folder menggunakan konsol (`cmd` untuk windows, `terminal` untuk mac/linux)
 - Jalankan perintah `npm i` untuk menginstall packages yang diperlukan
