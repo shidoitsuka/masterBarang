@@ -13,8 +13,11 @@
 
 > Untuk melihat aplikasi, buka `localhost:{port}` di browser (port default 3000)
 
-## s
+## Screenshots
 ![1](https://i.ibb.co/ThgqGdR/image.png)
 ![2](https://i.ibb.co/c6xKQYc/image.png)
 ![3](https://i.ibb.co/NC2LFMw/image.png)
 ![4](https://i.ibb.co/6P9G094/image.png)
+
+## Lisensi
+#### Aplikasi ini tidak memiliki Lisensi khusus. Bebas digunakan ataupun diedit tanpa sepengetahuan pemilik.
