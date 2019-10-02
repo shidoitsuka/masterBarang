@@ -1,0 +1,219 @@
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <title>Master Barang</title>
+
+  <link rel="stylesheet" href="/assets/userStyle.css" />
+  <link rel="stylesheet" href="/assets/css/bootstrap.css" />
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Master Barang</h1>
+    <div class="input-field">
+      <input id="myInput" class="form-control" onkeyup="find()" type="text" autofocus>
+      <label for="search">Search</label>
+    </div>
+
+    <table class="table table-hover" id="mytable">
+      <tr>
+        <th>Kode Barang</th>
+        <th>Nama Barang</th>
+        <th>Merk</th>
+        <th>Harga</th>
+        <th>Tanggal Masuk Barang</th>
+        <th>Action</th>
+      </tr>
+
+      {{#each results}}
+        <tr>
+          <td>{{ kodeBarang }}</td>
+          <td>{{ namaBarang }}</td>
+          <td>{{ merkBarang }}</td>
+          <td>{{ hargaBarang }}</td>
+          <td>{{ tanggalMasuk }}</td>
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-kode="{{ kodeBarang }}" data-nama="{{ namaBarang }}" data-merk="{{ merkBarang }}" data-harga="{{ hargaBarang }}" data-tanggal="{{ tanggalMasuk }}">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger hapus" data-kode="{{ kodeBarang }}">Hapus</a>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+    <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Tambah Barang Baru</button>
+  </div>
+
+  <!-- Modal Add User-->
+
+  <form action="/save" method="post">
+    <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambahkan Barang</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="number" name="kodeBarang" class="form-control" placeholder="Kode Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="namaBarang" class="form-control" placeholder="Nama Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="merkBarang" class="form-control" placeholder="Merk Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="number" name="hargaBarang" class="form-control" placeholder="Harga Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="date" name="tanggalMasuk" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal Edit Barang-->
+
+  <form action="/update" method="post">
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Barang</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="number" id="kode" name="kodeBarang" class="form-control kodeBarang" placeholder="Kode Barang" readonly required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="namaBarang" class="form-control namaBarang" placeholder="Nama Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="merkBarang" class="form-control merkBarang" placeholder="Merk Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="number" name="hargaBarang" class="form-control hargaBarang" placeholder="Harga Barang" required>
+            </div>
+            <div class="form-group">
+              <input type="date" name="tanggalMasuk" class="form-control tanggalMasuk" required>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <input type="hidden" name="id" class="kodeBarang">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Update Barang</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal Delete User-->
+
+  <form id="add-row-form" action="/delete" method="post">
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">Hapus Barang</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <strong>Yakin ingin menghapus barang?</strong>
+          </div>
+
+          <div class="modal-footer">
+            <input type="hidden" name="kodeBarang" class="form-control kodeBarang2" required>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-success">Hapus</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <script src="/assets/js/jquery-3.4.1.min.js"></script>
+  <script src="/assets/js/bootstrap.js"></script>
+  <script>
+    function find() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.querySelector("table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    // TODO: membuat tangal langsung terinput saat edit
+    /*
+        function getMonth(mon) {
+          if (("JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(mon) / 3 + 1) < 10) {
+            return "0" + ("JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(mon) / 3 + 1);
+          } else {
+            return "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(mon) / 3 + 1;
+          }
+        } */
+    $(document).ready(function() {
+      //showing data to edit modal
+      $('#mytable').on('click', '.edit', function() {
+        var kodeBarang = $(this).data('kode');
+        var namaBarang = $(this).data('nama');
+        var merkBarang = $(this).data('merk');
+        var hargaBarang = $(this).data('harga');
+        var tanggalMasuk = $(this).data('tanggal');
+        $('#EditModal').modal('show');
+        $('.kodeBarang').val(kodeBarang);
+        $('.namaBarang').val(namaBarang);
+        $('.merkBarang').val(merkBarang);
+        $('.hargaBarang').val(hargaBarang);
+        $('.tanggalMasuk').val(tanggalMasuk);
+        // TODO: membuat tanngal langsung terinput saat edit
+        // $('#dob').val(`${dob.slice(11, 15)}-${getMonth(dob.slice(4,7))}-${dob.slice(8,10)}`);
+      });
+      //showing delete record modal
+      $('#mytable').on('click', '.hapus', function() {
+        var kodeBarang = $(this).data('kode');
+        $('#DeleteModal').modal('show');
+        $('.kodeBarang2').val(kodeBarang);
+      });
+
+    });
+  </script>
+</body>
+
+</html>
